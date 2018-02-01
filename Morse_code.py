@@ -77,18 +77,43 @@ def get_Morse_ref(mode):
             letter_ref[Morse_ref[i]] = i
         return letter_ref
         
-def Code(string):
-    pass
+def Code(Morse_ref, string):                 #编码字符串
+    code = []
+    for chr in string:
+        tmp = Morse_ref[chr]
+        if(not tmp):
+            print("can't find the Morse code\n")
+            exit(1)
+        code.append(tmp)
+    code = '/'.join(code)
+    return code
     
-def Decode(Morse_code):
-    pass
+def Decode(letter_ref, Morse_code):          #解码字符串
+    decode = []
+    for chr in Morse_code:
+        try:
+            tmp = letter_ref[chr]
+        except ValueError as e:
+            print("can't find the Morse_code\n'")
+        finally:
+            decode.append(tmp)
+    decode = ''.join(decode)
+    return decode
 
 if __name__ == "__main__":
     mode,str = get_string()
     string = pre_process(mode, str)
-    print(string)
-    ref = get_Morse_ref(mode)
-    print(ref)
+    ref = get_Morse_ref(mode)            #获取摩斯电码的参考表
+    
+    if mode == 'a':
+        decode = Decode(ref, string)
+        print("the result:")
+        print(decode)
+    
+    else:
+        code = Code(ref, string)
+        print("the result:")
+        print(code)
     
     
     
